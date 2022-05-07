@@ -28,6 +28,7 @@ def download(obj, path=None):
     _id = obj["ID"]
     _type = obj["Type"]
     name = obj["VissibleName"]
+    name = name.replace("/", "-")
 
     if path == None:
         path = TARGET
