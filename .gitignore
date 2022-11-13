@@ -139,3 +139,5 @@ package-lock.json
 **/cov/
 /hash/_wasm/target
 /hash/_wasm/out
+
+remarkable*
