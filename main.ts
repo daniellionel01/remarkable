@@ -32,7 +32,7 @@ const RemFileSchema = RemBaseSchema.extend({
   fileType: z.enum(["notebook", "pdf", "epub"]),
 
   pageCount: z.number().int(),
-  pages: z.array(z.string()),
+  pages: z.array(z.string()).nullish(),
   sizeInBytes: z.string(),
 });
 
@@ -57,10 +57,11 @@ function getReq(path: string): Promise<Response> {
   return fetch(url, { headers });
 }
 
-function getDocuments(path: string): Promise<RemEntityArray> {
-  return getReq(path)
-    .then((res) => res.json())
-    .then((res) => RemEntityArraySchema.parse(res));
+async function getDocuments(path: string): Promise<RemEntityArray> {
+  const res = await getReq(path)
+  const json = await res.json()
+
+  return RemEntityArraySchema.parse(json)
 }
 
 async function download(doc: RemEntity, path?: string) {
