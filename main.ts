@@ -17,7 +17,7 @@ const RemBaseSchema = z.object({
   ModifiedClient: z.string(),
   Parent: z.string(),
   Type: z.enum(["CollectionType", "DocumentType"]),
-  Version: z.number(),
+  Version: z.number().optional(),
   VissibleName: z.string(),
   tags: z.array(z.string()),
 });
