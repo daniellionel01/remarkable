@@ -136,6 +136,7 @@ deno.d.ts
 package.json
 package-lock.json
 .vscode/settings.json
+.vim
 **/cov/
 /hash/_wasm/target
 /hash/_wasm/out

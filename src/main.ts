@@ -4,43 +4,12 @@ import {
   copy,
   readerFromStreamReader,
 } from "https://deno.land/std@0.163.0/streams/conversion.ts";
-import { z } from "https://deno.land/x/zod@v3.19.1/mod.ts";
+import { RemEntity, RemEntityArray, RemEntityArraySchema } from "./schemas.ts";
 
 const PROTOCOL = "http";
 const IP = "10.11.99.1";
 const TS = Date.now();
 const TARGET = `./remarkable-${TS}`;
-
-const RemBaseSchema = z.object({
-  Bookmarked: z.boolean(),
-  ID: z.string().uuid(),
-  ModifiedClient: z.string(),
-  Parent: z.string(),
-  Type: z.enum(["CollectionType", "DocumentType"]),
-  Version: z.number().optional(),
-  VissibleName: z.string(),
-  tags: z.array(z.string()),
-});
-
-const RemDocumentSchema = RemBaseSchema.extend({
-  Type: z.literal("CollectionType"),
-});
-
-const RemFileSchema = RemBaseSchema.extend({
-  CurrentPage: z.number().int().default(0),
-  Type: z.literal("DocumentType"),
-  fileType: z.enum(["notebook", "pdf", "epub"]),
-
-  pageCount: z.number().int(),
-  pages: z.array(z.string()).nullish(),
-  sizeInBytes: z.string(),
-});
-
-const RemEntitySchema = z.union([RemFileSchema, RemDocumentSchema]);
-type RemEntity = z.infer<typeof RemEntitySchema>;
-
-const RemEntityArraySchema = z.array(RemEntitySchema);
-type RemEntityArray = z.infer<typeof RemEntityArraySchema>;
 
 function getReq(path: string): Promise<Response> {
   const url = `${PROTOCOL}://${IP}${path}`;
