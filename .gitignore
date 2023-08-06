@@ -141,3 +141,4 @@ package-lock.json
 /hash/_wasm/out
 
 remarkable*
+bin/
