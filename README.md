@@ -1,5 +1,7 @@
 # remarkable
 
+https://remarkable.com/
+
 this is a utility to export all of the contents of your remarkable as PDFs to a local folder.
 
 once you run the program, it creates a folder prefixed with "remarkable-" and the current timestamp.
